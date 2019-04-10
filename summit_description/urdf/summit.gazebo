@@ -6,13 +6,14 @@
        <robotNamespace>/summit</robotNamespace>
        <controlPeriod>0.003</controlPeriod>
 	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+	   <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
-  
+
   <gazebo reference="base_footprint">
     <material>Gazebo/Green</material>
   </gazebo>
-  
+
   <gazebo reference="base_link">
     <material>Gazebo/Red</material>
   </gazebo>
@@ -20,7 +21,7 @@
   <gazebo reference="back_left_wheel_dir">
     <material>Gazebo/Green</material>
   </gazebo>
-  
+
   <gazebo reference="back_right_wheel_dir">
     <material>Gazebo/Green</material>
   </gazebo>
@@ -41,7 +42,7 @@
   </gazebo -->
 
   <gazebo reference="back_left_wheel">
-    <mu1 value="50.0"/> 
+    <mu1 value="50.0"/>
     <mu2 value="50.0"/>
     <fdir1 value="1 0 0"/>
     <material>Gazebo/Grey</material>
@@ -53,16 +54,16 @@
     <fdir1 value="1 0 0"/>
     <material>Gazebo/Grey</material>
   </gazebo>
-  
+
   <gazebo reference="front_left_wheel">
-    <mu1 value="50.0"/> 
+    <mu1 value="50.0"/>
     <mu2 value="50.0"/>
     <fdir1 value="1 0 0"/>
     <material>Gazebo/Grey</material>
   </gazebo>
 
   <gazebo reference="front_right_wheel">
-    <mu1 value="50.0"/> 
+    <mu1 value="50.0"/>
     <mu2 value="50.0"/>
     <fdir1 value="1 0 0"/>
     <material>Gazebo/Grey</material>
@@ -90,7 +91,7 @@
         </clip>
         <noise>
           <type>gaussian</type>
-          <!-- Noise is sampled independently per pixel on each frame.  
+          <!-- Noise is sampled independently per pixel on each frame.
                That pixel's noise value is added to each of its color
                channels, which at that point lie in the range [0,1]. -->
           <mean>0.0</mean>
@@ -112,7 +113,7 @@
         <distortionT2>0.0</distortionT2>
       </plugin>
     </sensor>
-  </gazebo> 
+  </gazebo>
 
   <!-- hokuyo -->
   <gazebo reference="hokuyo_laser_link">
@@ -152,15 +153,15 @@
       </plugin>
     </sensor>
   </gazebo>
-  
+
   <gazebo>
     <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
        <robotNamespace>/summit</robotNamespace>
        <topicName>imu_data</topicName>
 		<bodyName>imu_link </bodyName>
 		<serviceName>/imu_service</serviceName>
-        <gaussianNoise>0.005</gaussianNoise>		
+        <gaussianNoise>0.005</gaussianNoise>
     </plugin>
   </gazebo>
-  
+
 </robot>
