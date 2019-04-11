@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot name="summit" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find summit_description)/urdf/summit.gazebo" />
 
@@ -168,7 +167,7 @@
        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
      </joint>
      <actuator name="joint_blw_motor">
-	    <hardwareInterface>VelocityJointInterface</hardwareInterface>
+	    <!-- hardwareInterface>VelocityJointInterface</hardwareInterface-->
         <mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
      	<!--motorTorqueConstant>1</motorTorqueConstant-->
 	 </actuator>

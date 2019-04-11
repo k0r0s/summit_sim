@@ -11,7 +11,7 @@
   <!-- Include this file only if you wish a the control to be done by the summit_xl_robot_control node -->
   <!-- summit_xl_robot_control launch file -->
   <!-- i.e. if the control is not assumed by the libgazebo_ros_skid_steer_drive plugin -->
-  <!-- include file="$(find summit_robot_control)/launch/summit_robot_control.launch" / -->
+  <include file="$(find summit_robot_control)/launch/summit_robot_control.launch" />
 
   <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
   <!-- summit_xl_joy launch file -->
@@ -34,8 +34,8 @@
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_description)/urdf/summit.urdf.xacro'" />
-         
+         command="$(find xacro)/xacro --inorder '$(find summit_description)/urdf/summit.urdf.xacro'" />
+
   <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model summit -param robot_description"/>
