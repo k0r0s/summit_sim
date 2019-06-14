@@ -44,4 +44,7 @@
   <!-- DepthImage To LaserScan file -->
   <include file="$(find depthimage_to_laserscan)/launch/di2l.launch" />
 
+  <!-- Gmapping launch file -->
+  <include file="$(find gmapping)/launch/slam_gmapping_pr2.launch" />
+
 </launch>
