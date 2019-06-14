@@ -463,35 +463,6 @@
 
 
 
-  <!-- HOKUYO SENSOR -->
-  <joint name="hokuyo_laser_joint" type="fixed">
-     <axis xyz="0 1 0" />
-     <origin xyz="0.226 0 0.120"/>
-     <parent link="base_link"/>
-     <child link="hokuyo_laser_link"/>
-  </joint>
-
-  <link name="hokuyo_laser_link" type="laser">
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-	     <box size="0.1 0.1 0.1"/>
-      </geometry>
-    </collision>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://summit_description/meshes/hokuyo-utm30-lx.dae"/>
-      </geometry>
-    </visual>
-    <inertial>
-      <mass value="1e-5" />
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-    </inertial>
-  </link>
-
-
   <!-- IMU SENSOR -->
   <joint name="imu_joint" type="fixed">
       <axis xyz="1 0 0"/> <!-- 0 1 0 -->
@@ -526,9 +497,9 @@
   <joint name="kinect_rgb_joint" type="fixed">
       <origin xyz="0.10 0 0.2825" rpy="0 0 0"/>
       <parent link="base_link"/>
-      <child link="kinect_rgb_base_link" />
+      <child link="camera_rgb_base_frame" />
     </joint>
-    <link name="kinect_rgb_base_link">
+    <link name="camera_rgb_base_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -541,10 +512,10 @@
 
     <joint name="kinect_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2}" />
-      <parent link="kinect_rgb_base_link" />
-      <child link="kinect_rgb_optical_link" />
+      <parent link="camera_rgb_base_frame" />
+      <child link="camera_rgb_optical_frame" />
     </joint>
-    <link name="kinect_rgb_optical_link">
+    <link name="camera_rgb_optical_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -556,10 +527,10 @@
 
   <joint name="kinect_joint" type="fixed">
     <origin xyz="-0.031 ${-cam_py} -0.016" rpy="0 0 0"/>
-    <parent link="kinect_rgb_base_link"/>
-    <child link="kinect_link"/>
+    <parent link="camera_rgb_base_frame"/>
+    <child link="camera_link"/>
   </joint>
-    <link name="kinect_link">
+    <link name="camera_link">
     <visual>
      <origin xyz="0 0 0" rpy="0 0 ${PI/2}"/>
       <geometry>
@@ -586,10 +557,10 @@
        (Hence, don't publish them additionally!) -->
 	<joint name="kinect_depth_joint" type="fixed">
 	  <origin xyz="0 ${2 * -cam_py} 0" rpy="0 0 0" />
-	  <parent link="kinect_rgb_base_link" />
-	  <child link="kinect_depth_link" />
+	  <parent link="camera_rgb_base_frame" />
+	  <child link="camera_depth_frame" />
 	</joint>
-	<link name="kinect_depth_link">
+	<link name="camera_depth_frame">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -600,10 +571,10 @@
 	</link>
 	<joint name="kinect_depth_optical_joint" type="fixed">
 	  <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2}" />
-	  <parent link="kinect_depth_link" />
-	  <child link="kinect_depth_optical_link" />
+	  <parent link="camera_depth_frame" />
+	  <child link="camera_depth_optical_frame" />
 	</joint>
-	<link name="kinect_depth_optical_link">
+	<link name="camera_depth_optical_frame">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -613,82 +584,6 @@
     </inertial>
 	</link>
 
-  <!--     -->
-
-  <!-- AXIS PTZ CAMERA WITH PAN AND TILT -->
-  <link name="camera_base_link">
-     <inertial>
-       <mass value="0.1" />
-       <origin xyz="0 0 0" rpy="0 0 0" />
-       <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
-    </inertial>
-  </link>
-
-  <joint name="joint_camera" type="fixed">
-     <axis xyz="0 1 0" />
-     <!--origin xyz="0.180 0.0 0.270"/-->
-     <origin xyz="0.150 0.0 0.240"/>
-     <parent link="base_link"/>
-     <child link="camera_base_link"/>
-  </joint>
-
-
-  <link name="camera_pan_link">
-     <inertial>
-       <mass value="0.1" />
-       <origin xyz="0 0 0" rpy="0 0 0" />
-       <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
-    </inertial>
-  </link>
-
-  <joint name="joint_camera_pan" type="continuous">
-     <axis xyz="0 0 1" />
-     <origin xyz="0.0 0.0 0.0"/>
-     <parent link="camera_base_link"/>
-     <child link="camera_pan_link"/>
-     <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-3.1416" upper="3.1416"/>
-     <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
-  </joint>
-
-  <transmission name="joint_pan_trans">
-	 <type>transmission_interface/SimpleTransmission</type>
-     <joint name="joint_camera_pan">
-       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-     </joint>
-     <actuator name="pan_motor">
-	   <hardwareInterface>EffortJointInterface</hardwareInterface>
-       <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
-     </actuator>
-  </transmission>
-
-  <link name="camera_tilt_link">
-     <inertial>
-       <mass value="0.1" />
-       <!-- origin xyz="0 0 0" rpy="0 0 0" / -->
-       <origin xyz="0 0 0.3" rpy="0 0 0" />
-       <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
-    </inertial>
-  </link>
-
-  <joint name="joint_camera_tilt" type="continuous">
-     <axis xyz="0 1 0" />
-     <origin xyz="0.0 0.0 0.0"/>
-     <parent link="camera_pan_link"/>
-     <child link="camera_tilt_link"/>
-     <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-1.5708" upper="1.5708"/>
-     <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
-  </joint>
-
-  <transmission name="joint_tilt_trans">
-	 <type>transmission_interface/SimpleTransmission</type>
-     <joint name="joint_camera_tilt">
-       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-     </joint>
-     <actuator name="tilt_motor">
-	   <hardwareInterface>EffortJointInterface</hardwareInterface>
-       <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
-     </actuator>
-  </transmission>
 
 
 </robot>

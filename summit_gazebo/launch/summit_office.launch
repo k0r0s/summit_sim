@@ -41,4 +41,7 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model summit -param robot_description"/>
 
+  <!-- DepthImage To LaserScan file -->
+  <include file="$(find depthimage_to_laserscan)/launch/di2l.launch" />
+
 </launch>
