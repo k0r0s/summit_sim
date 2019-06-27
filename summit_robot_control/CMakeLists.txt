@@ -4,12 +4,12 @@ project(summit_robot_control)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS 
-    nav_msgs 
+find_package(catkin REQUIRED COMPONENTS
+    nav_msgs
     robotnik_msgs
-    roscpp 
-    sensor_msgs 
-    geometry_msgs 
+    roscpp
+    sensor_msgs
+    geometry_msgs
     ackermann_msgs
     tf
     )
@@ -86,12 +86,12 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES summit_xl_robot_control
-  CATKIN_DEPENDS 
-    nav_msgs 
+  CATKIN_DEPENDS
+    nav_msgs
     robotnik_msgs
-    roscpp 
-    sensor_msgs 
-    geometry_msgs 
+    roscpp
+    sensor_msgs
+    geometry_msgs
     tf
 #  DEPENDS system_lib
 )

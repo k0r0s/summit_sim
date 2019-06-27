@@ -9,7 +9,7 @@
   <include file="$(find summit_control)/launch/summit_control.launch" />
 
   <!-- summit_robot_control launch file -->
-  <include file="$(find summit_robot_control)/launch/summit_robot_control.launch" />
+  <include file="$(find summit_robot_control)/launch/summit_robot_control_double.launch" />
 
 
   <!-- summit_xl_joy launch file -->
@@ -33,7 +33,7 @@
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_description)/urdf/summit.urdf.xacro'" />
+         command="$(find xacro)/xacro.py '$(find summit_description)/urdf/summit_double.urdf.xacro'" />
   <!-- param name="sensor_kinect"
          command="$(find xacro)/xacro.py '$(find summit_description)/urdf/structures/kinect.urdf.xacro'" -->
 
@@ -43,8 +43,5 @@
 
   <!-- DepthImage To LaserScan file -->
   <include file="$(find depthimage_to_laserscan)/launch/di2l.launch" />
-
-  <!-- Gmapping launch file -->
-  <include file="$(find gmapping)/launch/slam_gmapping_pr2.launch" />
 
 </launch>
