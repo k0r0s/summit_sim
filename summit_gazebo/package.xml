@@ -22,7 +22,7 @@
   <run_depend>tf</run_depend>
   <run_depend>gazebo_ros</run_depend>
 
-  <run_depend>summit_xl_description</run_depend>  
+  <run_depend>summit_description</run_depend>  
 
   <export>
 	  <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
