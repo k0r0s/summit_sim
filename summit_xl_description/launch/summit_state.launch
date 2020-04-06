@@ -2,7 +2,7 @@
 <launch>
 
   <!-- send summit_xl.urdf.xacro to param server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find summit_description)/urdf/summit.urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit.urdf.xacro'" />
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
