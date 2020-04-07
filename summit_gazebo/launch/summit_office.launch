@@ -15,7 +15,7 @@
   <!-- summit_xl_joy launch file -->
   <!-- for this node to work correctly first you need to succesfully connect the ps3 joystick with:
 		sudo su
-		rosrun ps3joy sixpair
+		rosrun ps3joy sixpairl
 		rosrun ps3joy ps3joy.py
   -->
   <!--include file="$(find summit_joystick)/launch/summit_joy.launch" -->
